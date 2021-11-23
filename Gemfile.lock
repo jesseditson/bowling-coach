@@ -1,11 +1,17 @@
-GEM
-  remote: https://rubygems.org/
+GIT
+  remote: https://github.com/jesseditson/archival.git
+  revision: e790a56f43048cb9736ef13cd6c2b05f3b5db14c
+  branch: main
   specs:
-    archival (0.0.6)
+    archival (0.0.8)
       liquid (~> 5.1.0)
       listen (~> 3.7.0)
       redcarpet (~> 3.5.1)
       tomlrb (~> 2.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
     ffi (1.15.4)
     liquid (5.1.0)
     listen (3.7.0)
@@ -22,7 +28,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  archival (~> 0.0.6)
+  archival!
   rake (~> 13.0)
 
 BUNDLED WITH

@@ -1,3 +1,13 @@
 .content {
     padding: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+#video {
+    width: 100%;
+}
+
+.mark.selected {
+    border: 1px solid red;
 }

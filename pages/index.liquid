@@ -1,10 +1,21 @@
-{% layout 'theme', title: "Website" %}
-
-<h1 class="page-title">A Website</h1>
+{% layout 'theme', title: "Bowling Coach" %}
 
 <div class="content">
-    {% for section in objects.section %}
-        <h2>{{section.name}}</h2>
-        <div>{{section.body}}</div>
-    {% endfor %}
+    <input type="file" id="video-select" accept="video/*"/>
+    <video id="video" controls></video>
+    <div class="controls">
+        <div class="steps">
+            <button id="step-backward">< (a)</button>
+            <button id="step-forward">> (s)</button>
+        </div>
+        <div class="marks">
+            <button id="mark-start">Mark Slide Begin (q)</button>
+            <button id="mark-end">Mark Slide End (w)</button>
+        </div>
+    </div>
+
+    <ol id="marks"></ol>
 </div>
+
+<script type="application/javascript" src="{% asset 'js/main.js' %}"></script>
+
