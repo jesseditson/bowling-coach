@@ -8,6 +8,15 @@
     width: 100%;
 }
 
+.loading {
+    width: 100%;
+    height: 5px;
+}
+.loading .bar {
+    color: blue;
+    height: 100%;
+}
+
 .mark.selected {
     border: 1px solid red;
 }

@@ -1,4 +1,5 @@
 let videoFileName;
+let progress;
 let videoSelect;
 let video;
 let stepBackButton;
@@ -6,6 +7,7 @@ let stepFwdButton;
 let markStartButton;
 let markEndButton;
 let marksElement;
+let worker;
 
 let marks = [];
 let currentMark;
@@ -19,11 +21,14 @@ const keyMap = new Map([
     ['w', markEnd],
 ])
 
-const SCROLL_FACTOR = 0.005
+const SCROLL_FACTOR = 0.01
 
 window.addEventListener('load', () => {
+    worker = new Worker("js/worker.js")
+
     videoSelect = document.querySelector('#video-select')
     video = document.querySelector('#video')
+    progress = document.querySelector('.loading .bar')
     stepBackButton = document.querySelector('#step-backward')
     stepFwdButton = document.querySelector('#step-forward')
     markStartButton = document.querySelector('#mark-start')
@@ -49,26 +54,18 @@ window.addEventListener('load', () => {
     videoSelect.addEventListener('change', selectFile)
 })
 
-function readFile(file) {
-    return new Promise(resolve => {
-        // Closure to capture the file information.
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            resolve(e.target.result)
-        }
-        reader.readAsDataURL(file)
-    })
+onmessage = async (e) => {
+    switch (e.data.action) {
+        
+    }
 }
 
 async function selectFile(e) {
     const file = e.target.files[0]
     videoFileName = file.name
-    const src = document.createElement('source')
-    const dataUrl = await readFile(file)
-    src.setAttribute('src', dataUrl)
-    video.appendChild(src)
     videoSelect.parentNode.removeChild(videoSelect)
-
+    const url = URL.createObjectURL(file)
+    video.src = url
     loadMarks()
     currentMark = marks[0]
     refreshMarks()
@@ -86,9 +83,11 @@ function stepForward() {
     stepFrames(1)
 }
 function markStart() {
-    const markName = crypto.randomUUID()
-    marks.push(markName)
-    saveMarks()
+    const markName = currentMark || crypto.randomUUID()
+    if (!currentMark) {
+        marks.push(markName)
+        saveMarks()
+    }
     write(`${markName}:start`, video.currentTime)
     currentMark = markName
     refreshMarks()
@@ -96,6 +95,8 @@ function markStart() {
 function markEnd() {
     if (currentMark) {
         write(`${currentMark}:end`, video.currentTime)
+        refreshMarks()
+        currentMark = null
     }
 }
 

@@ -2,6 +2,9 @@
 
 <div class="content">
     <input type="file" id="video-select" accept="video/*"/>
+    <div class="loading">
+        <div class="bar"></div>
+    </div>
     <video id="video" controls></video>
     <div class="controls">
         <div class="steps">
@@ -9,12 +12,15 @@
             <button id="step-forward">> (s)</button>
         </div>
         <div class="marks">
-            <button id="mark-start">Mark Slide Begin (q)</button>
+            <button id="mark-start">Mark Approach Begin (q)</button>
             <button id="mark-end">Mark Slide End (w)</button>
         </div>
     </div>
 
     <ol id="marks"></ol>
+    <div class="operations">
+        <button id="export-overlay">Export Overlay</button>
+    </div>
 </div>
 
 <script type="application/javascript" src="{% asset 'js/main.js' %}"></script>
